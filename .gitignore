@@ -1,8 +1,86 @@
+# Python bytecode / caches
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+.python-version
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.pipenv/
+pipenv-env/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Logs
 *.log
+logs/
+
+# Coverage / testing / lint caches
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+
+# Type checker / static analysis
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+.envrc
+
+# IDE / Editor
+.vscode/
+.idea/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Gradio / app cache (optional; uncomment if generated)
+# gradio_cached_examples/
+
+# Audio outputs (keep selective ignore patterns you already had)
 final.mp3
 gtts_testing*.mp3
 elevenlabs_testing*.mp3
 patient_voice_test*.mp3
+
+# Optional: ignore ALL large audio except curated ones
+# *.mp3
+# *.wav
+# *.ogg
+
+# Model / weight / large ML artifacts
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.onnx
+*.tflite
+*.pb
+*.h5
+*.safetensors
+
+# Misc
+*.sqlite3
+*.db
+*.tmp
+*.swp
+*.bak
