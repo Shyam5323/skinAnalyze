@@ -47,10 +47,5 @@ demo = gr.Interface(
     title="AI Doctor (Vision + Voice Demo)"
 )
 
-# At the bottom of app.py, change this line:
-if __name__ == "__main__":
-    demo.launch()
-
-# To this:
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
