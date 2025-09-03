@@ -1,6 +1,5 @@
-# if you dont use pipenv uncomment the following:
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 #Step1: Setup Audio recorder (ffmpeg & portaudio)
 # ffmpeg, portaudio, pyaudio
@@ -33,7 +32,8 @@ def record_audio(file_path, timeout=20, phrase_time_limit=None):
             logging.info("Recording complete.")
             
             # Convert the recorded audio to an MP3 file
-            wav_data = audio_data.get_wav_data()
+            # audio_data is of type speech_recognition.AudioData
+            wav_data = audio_data.get_wav_data()  # type: ignore[attr-defined]
             audio_segment = AudioSegment.from_wav(BytesIO(wav_data))
             audio_segment.export(file_path, format="mp3", bitrate="128k")
             
@@ -49,17 +49,18 @@ audio_filepath="patient_voice_test_for_patient.mp3"
 import os
 from groq import Groq
 
-GROQ_API_KEY=os.environ.get("GROQ_API_KEY")
 stt_model="whisper-large-v3"
 
-def transcribe_with_groq(stt_model, audio_filepath, GROQ_API_KEY):
-    client=Groq(api_key=GROQ_API_KEY)
-    
-    audio_file=open(audio_filepath, "rb")
-    transcription=client.audio.transcriptions.create(
-        model=stt_model,
-        file=audio_file,
-        language="en"
-    )
-
+def transcribe_with_groq(stt_model: str, audio_filepath: str) -> str:
+    """Transcribe audio using Groq Whisper. Pulls key from env automatically."""
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise RuntimeError("GROQ_API_KEY not set. Add it to your environment or .env file.")
+    client = Groq(api_key=api_key)
+    with open(audio_filepath, "rb") as audio_file:
+        transcription = client.audio.transcriptions.create(
+            model=stt_model,
+            file=audio_file,
+            language="en"
+        )
     return transcription.text
