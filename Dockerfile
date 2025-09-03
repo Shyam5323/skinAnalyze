@@ -23,4 +23,4 @@ COPY . .
 EXPOSE 7860
 
 # Start command
-CMD ["python", "app.py"]
+CMD ["python", "gradio_app.py"]

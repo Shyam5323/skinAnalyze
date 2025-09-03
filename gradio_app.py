@@ -6,7 +6,7 @@ import os
 import gradio as gr
 
 from brain_of_the_doctor import encode_image, analyze_image_with_query, DEFAULT_VISION_MODEL
-from voice_of_the_patient import record_audio, transcribe_with_groq
+from voice_of_the_patient import transcribe_with_groq
 from voice_of_the_doctor import text_to_speech_with_gtts, text_to_speech_with_elevenlabs
 
 #load_dotenv()
@@ -60,6 +60,6 @@ iface = gr.Interface(
     title="AI Doctor with Vision and Voice"
 )
 
-iface.launch(debug=True)
+iface.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)), debug=True)
 
 #http://127.0.0.1:7860
